@@ -1,0 +1,22 @@
+{
+  "name": "02-igniting",
+  "version": "1.0.0",
+  "description": "React Basic Setup",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.8.3",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "browserlist": [
+    "last 2 chrome version",
+    "last 2 firefox version"
+  ]
+}
