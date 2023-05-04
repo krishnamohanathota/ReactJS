@@ -1,0 +1,14 @@
+{
+  "name": "02-igniting",
+  "version": "1.0.0",
+  "description": "React Basic Setup",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.8.3"
+  }
+}
