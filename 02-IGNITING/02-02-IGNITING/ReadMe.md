@@ -24,6 +24,7 @@ Added React Dependecices
 - Production Build
 - Differential Bundling - Old Browsers Support
 - Better Error Logging
+- Transpiling (i.e. Convert ES6 to ES5, Converting JSX to JS). Parcel uses Babel for this. Babel is JavaScript compiler
 
 #PROD Build
 
