@@ -25,8 +25,6 @@ PROD Build (Production Build)
 - JSX is a JavaScript syntax extension
 - JSX is not a necessity to write React applications. It is just a convenient tool that helps to write React code faster
 - We can write React without JSX, but JSX makes React a lot more elegant
-- JSX is closer to JavaScript than to HTML
-- JSX is not part of React. It is a separate project called Babel
 - JSX is a convention to merge HTML and JavaScript together
 - JSX is HTML like syntax that gets transformed to lightweight JavaScript objects
 - JSX produces ReactElements
