@@ -50,6 +50,9 @@ function Counter() {
 # useState
 
 - `useState` is a Hook that lets you add React state to function components.
+- Local variables are not preserved between re-renders of a component. But state variables are preserved between re-renders of a component.
+- Local state is a feature available only to classes in React. But with the `useState` hook, you can add local state to function components.
+- To sync the state of a component with the UI, you need to call `setState` method. But with the `useState` hook, you can call the state setter function to update the state of a component.
 - The `useState` hook returns an **array** with 2 elements.
 
   - The first element is the current value of the state.
