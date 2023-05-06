@@ -11,6 +11,10 @@ Added React Dependecices
     - npm install react
     - npm install react-dom
 
+Why React?
+
+    - Everything we can do in React we can also do using HTML and JS. But React makes it easier for us to do it. Then Why React? Because React is fast, scalable and simple. Makes Development easier. React is a library for building user interfaces. React is not a framework. React is a JavaScript library for building user interfaces. React is declarative, component based and learn once write anywhere.
+
 #Parcel
 
 - Dev Build
