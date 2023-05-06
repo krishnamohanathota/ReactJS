@@ -50,8 +50,6 @@ function Counter() {
 # useState
 
 - `useState` is a Hook that lets you add React state to function components.
-- In classes, the state is always an object.
-- With the `useState` hook, the state doesn't have to be an object.
 - The `useState` hook returns an **array** with 2 elements.
 
   - The first element is the current value of the state.
@@ -69,8 +67,7 @@ function Counter() {
   const setCount = state[1];
   ```
 
-- New state value depends on the previous state value? You can pass a function to the setter function.
-- `useState` is a Hook, which means you can use it only inside a function component and not inside regular JavaScript functions.
+- You can use it only inside a function component and not inside regular JavaScript functions.
 - `useState` is a named export from the `react` package.
 
 # Reconscialiation
@@ -78,21 +75,21 @@ function Counter() {
 - React keeps two copies of the DOM. The first copy is the real DOM shown on the screen. The second copy is the virtual DOM. The virtual DOM is a copy of the real DOM. React uses the virtual DOM to find out what changes need to be made in the real DOM to make it look like the desired result. React then updates the real DOM to make it look like the virtual DOM. This process is called **reconciliation**.
 - Unique key is required for each element in the list. This helps React to identify which items have changed, are added or are removed. This helps in efficient reconciliation.
 
-# Virtaul DOM
+  ## Virtaul DOM
 
-- Virtaul DOM is a representation of the real DOM in the form of a JavaScript object.
-- Virtaul DOM is those React elements
-- React keeps two copies of the DOM. The first copy is the real DOM shown on the screen. The second copy is the virtual DOM.
-- The virtual DOM is a copy of the real DOM. React uses the virtual DOM to find out what changes need to be made in the real DOM to make it look like the desired result. React then updates the real DOM to make it look like the virtual DOM. This process is called **reconciliation**.
+  - Virtaul DOM is a representation of the real DOM in the form of a JavaScript object.
+  - Virtaul DOM is those React elements
+  - React keeps two copies of the DOM. The first copy is the real DOM shown on the screen. The second copy is the virtual DOM.
+  - The virtual DOM is a copy of the real DOM. React uses the virtual DOM to find out what changes need to be made in the real DOM to make it look like the desired result. React then updates the real DOM to make it look like the virtual DOM. This process is called **reconciliation**.
 
-# Diff Algorithm
+  ## Diff Algorithm
 
-- React uses the diffing algorithm to find out what changes need to be made in the real DOM to make it look like the desired result. React then updates the real DOM to make it look like the virtual DOM. This process is called **reconciliation**.
+  - React uses the diffing algorithm to find out what changes need to be made in the real DOM to make it look like the desired result. React then updates the real DOM to make it look like the virtual DOM. This process is called **reconciliation**.
 
-# React Fiber (Fiber reconciler)
+  ## React Fiber (Fiber reconciler)
 
-- React Fiber is a new reconciliation engine in React 16.
-- React Fiber is a new virtual DOM algorithm.
-- React Fiber is a tree reconciliation process.
-- React Fiber is not a reimplementation of React.
-- This new reconciliation algorithm from React is called Fiber reconciler.
+  - React Fiber is a new reconciliation engine in React 16.
+  - React Fiber is a new virtual DOM algorithm.
+  - React Fiber is a tree reconciliation process.
+  - React Fiber is not a reimplementation of React.
+  - This new reconciliation algorithm from React is called Fiber reconciler.
