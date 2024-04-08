@@ -6,9 +6,9 @@ v21.7.1
 ```
 
 ```bash
-mkdir example23-react-typescript
+mkdir directory-name
 
-cd example23-react-typescript
+cd directory-name
 
 npm init -y
 

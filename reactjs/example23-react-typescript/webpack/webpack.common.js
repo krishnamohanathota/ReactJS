@@ -1,20 +1,23 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
-  entry: "./src/index.tsx",
-  output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
+  entry: {
+    index: ["./src/index.tsx"],
+    vendor: ["react", "react-dom"],
   },
+
+  output: {
+    path: path.resolve(__dirname, "./../dist"),
+    publicPath: "/",
+    filename: "js/[name].[hash:6].js",
+    sourceMapFilename: "js/[name].[hash:6].js.map",
+    chunkFilename: "js/[id].chunk.[hash:6].js",
+  },
+
   resolve: {
     extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
   },
-  devServer: {
-    historyApiFallback: true,
-    port: 3000,
-    hot: true,
-    open: true,
-  },
+
   module: {
     rules: [
       {
@@ -29,7 +32,6 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        include: path.resolve(__dirname, "src"),
         use: [
           "style-loader",
           "css-loader",
@@ -40,7 +42,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "public", "index.html"),
+      template: path.resolve(__dirname, "./../public", "index.html"),
     }),
   ],
 };
