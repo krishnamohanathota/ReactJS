@@ -14,8 +14,9 @@ const rootReducer = combineReducers({
 export type RootState = ReturnType<typeof rootReducer>;
 
 const persistConfig = {
-  key: "root-new",
+  key: "root",
   storage,
+  timeout: 100, //https://github.com/rt2zz/redux-persist/issues/816
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
