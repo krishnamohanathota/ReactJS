@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
 export type RootState = ReturnType<typeof rootReducer>;
 
 const persistConfig = {
-  key: "root",
+  key: "root-new",
   storage,
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -28,6 +28,12 @@ function configureStore() {
 export const store = configureStore();
 export const persistor = persistStore(store);
 
-export function initReduxStore(cb: any) {
-  persistStore(store, null, cb);
+export function initReduxStore(cb: (error: any) => void) {
+  try {
+    persistStore(store, null, () => {
+      cb(null); // No error occurred during store initialization
+    });
+  } catch (error) {
+    cb(error); // Pass any errors that occur during initialization to the callback
+  }
 }

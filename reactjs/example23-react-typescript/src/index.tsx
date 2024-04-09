@@ -5,9 +5,9 @@ import { Provider } from "react-redux";
 import { persistor, store, initReduxStore } from "./store";
 import { PersistGate } from "redux-persist/lib/integration/react";
 
-//import "./app.css";
+import "./app.css";
 
-initReduxStore((err: any, state: any) => {
+initReduxStore((err: any) => {
   if (!err) {
     const rootElement = document.getElementById("root")!;
     const root = createRoot(rootElement);

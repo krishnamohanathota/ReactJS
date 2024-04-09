@@ -1,5 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
+
 module.exports = {
   entry: {
     index: ["./src/index.tsx"],
@@ -26,23 +28,29 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
+        // Images loader
+        test: /\.(png|svg|jpg|gif|ico)$/,
+        type: "asset/resource",
+      },
+      {
         enforce: "pre",
         test: /\.js$/,
         loader: "source-map-loader",
       },
       {
         test: /\.css$/,
-        use: [
-          "style-loader",
-          "css-loader",
-          "postcss-loader", // Add PostCSS loader
-        ],
+        use: ["style-loader", "css-loader", "postcss-loader"],
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, "./../public", "index.html"),
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: "public/assets", to: "assets" }, //to the dist root directory
+      ],
     }),
   ],
 };

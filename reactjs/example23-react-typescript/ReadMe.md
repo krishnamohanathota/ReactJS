@@ -193,3 +193,5 @@ npm install style-loader css-loader postcss-loader
 ## Reference
 
 https://muhammad-ata.medium.com/how-to-setup-react-typescript-project-from-scratch-with-webpack-fa45a90c7a4d
+
+https://brandonwie.medium.com/the-complete-guide-for-setting-up-custom-react-ts-application-c33c36f92666

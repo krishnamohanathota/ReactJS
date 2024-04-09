@@ -6,8 +6,6 @@ import AppLayout from "./components/AppLayout";
 import ProtectedRoute from "./ProtectedRoute";
 import PageNotFound from "./components/PageNotFound";
 
-// import "./app.css"; //added line
-
 function App() {
   return (
     <BrowserRouter>
