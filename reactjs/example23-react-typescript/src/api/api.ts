@@ -21,4 +21,3 @@ export const api = {
     return instance.get("/payments");
   },
 };
-s;
