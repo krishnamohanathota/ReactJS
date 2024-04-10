@@ -7,7 +7,8 @@ function Home() {
       <Link to="/">
         <img src="./assets/favicon.png" alt="Logo" />
       </Link>
-      <h1 className="underline">Home Page....</h1>
+      <h1 className="underline">Home Page</h1>
+      <h1>Env : {process.env.SUPPORT_EMAIL}</h1>
       <Link to="/login">Login</Link>
     </div>
   );
