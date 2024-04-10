@@ -5,43 +5,38 @@ const CopyPlugin = require("copy-webpack-plugin");
 module.exports = {
   entry: {
     index: ["./src/index.tsx"],
-    vendor: ["react", "react-dom"],
   },
-
-  output: {
-    path: path.resolve(__dirname, "./../dist"),
-    publicPath: "/",
-    filename: "js/[name].[hash:6].js",
-    sourceMapFilename: "js/[name].[hash:6].js.map",
-    chunkFilename: "js/[id].chunk.[hash:6].js",
-  },
-
   resolve: {
-    extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
+    extensions: [".tsx", ".ts", ".js"],
   },
-
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)$/,
-        loader: "ts-loader",
+        test: /\.(ts|js)x?$/,
         exclude: /node_modules/,
-      },
-      {
-        // Images loader
-        test: /\.(png|svg|jpg|gif|ico)$/,
-        type: "asset/resource",
-      },
-      {
-        enforce: "pre",
-        test: /\.js$/,
-        loader: "source-map-loader",
+        use: [
+          {
+            loader: "babel-loader",
+          },
+        ],
       },
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader", "postcss-loader"],
       },
+      {
+        test: /\.(?:ico|gif|png|jpg|jpeg)$/i,
+        type: "asset/resource",
+      },
+      {
+        test: /\.(woff(2)?|eot|ttf|otf|svg|)$/,
+        type: "asset/inline",
+      },
     ],
+  },
+  output: {
+    path: path.resolve(__dirname, "./../dist"),
+    filename: "bundle.js",
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -53,4 +48,5 @@ module.exports = {
       ],
     }),
   ],
+  stats: "errors-only",
 };
