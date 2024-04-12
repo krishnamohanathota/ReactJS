@@ -10,7 +10,7 @@ module.exports = {
         SUPPORT_EMAIL: JSON.stringify("prod@gmail.com"),
         APP_ID: JSON.stringify(""),
         SECRET_KEY: JSON.stringify(""),
-        BASE: JSON.stringify("https://prod.api.com"),
+        API_BASE_URL: JSON.stringify("https://api.escuelajs.co"),
       },
     }),
   ],

@@ -8,10 +8,13 @@ import userActions from "../actions/userActions";
 import { useSelector } from "react-redux";
 
 import { RootState } from "../store";
+import ApiService from "../util/ApiService";
+
+import { API_BASE_URL } from "./../constants/constants";
 
 export default function Login() {
-  const [email, setEmail] = useState("madhavi@example.com");
-  const [password, setPassword] = useState("qwerty");
+  const [email, setEmail] = useState("john@mail.com");
+  const [password, setPassword] = useState("changeme");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -29,6 +32,13 @@ export default function Login() {
       console.log("Please provide username and password");
       return;
     }
+
+    if (API_BASE_URL) {
+      console.log(API_BASE_URL);
+      const apiService = new ApiService(API_BASE_URL);
+      apiService.login(email, password);
+    }
+
     //Call API to authenticate
     dispatch(userActions.setLoginStatus(true));
     dispatch(userActions.setUserName(email));
