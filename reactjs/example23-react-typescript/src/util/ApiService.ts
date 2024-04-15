@@ -1,8 +1,10 @@
 import ApiUtil, { ApiResponse } from "./ApiUtil";
+import axios from "axios";
+
 import {
-  LOCAL_STORAGE_ACCESS_TOKEN,
-  LOCAL_STORAGE_REFRESH_TOKEN,
+  LOCAL_STORAGE_KEYS,
   API_ENDPOINTS,
+  TOKEN_EXPIRED,
 } from "./../constants/constants";
 import { Logger } from "./Logger";
 import LocalStorage from "./../util/LocalStorage";
@@ -10,7 +12,6 @@ import LocalStorage from "./../util/LocalStorage";
 // Define the type for the data returned from the login API
 interface LoginResponseData {
   access_token: string;
-  refresh_token: string;
   // Add other properties if there are any
 }
 
@@ -21,24 +22,37 @@ class ApiService {
     this.api = new ApiUtil(baseUrl);
   }
 
+  // Clear Local Storage
+  clearLocalStorage() {
+    LocalStorage.remove(LOCAL_STORAGE_KEYS.ACCESS_TOKEN);
+  }
+
+  // Method to get access token from localStorage
+  private getAccessToken(): string {
+    return LocalStorage.get(LOCAL_STORAGE_KEYS.ACCESS_TOKEN);
+  }
+
+  //Set accessToken and refreshToken
+  private setAccessToken() {
+    this.api.setAccessToken(this.getAccessToken());
+  }
+
   // Method to handle login
-  async login(username: string, password: string): Promise<void> {
+  async login(username: string, password: string): Promise<LoginResponseData> {
     try {
       const response = await this.api.login(API_ENDPOINTS.LOGIN, {
         email: username,
         password,
       });
       const data = (await response.data) as LoginResponseData;
-      //console.log(data);
       const accessToken = data.access_token;
-      const refreshToken = data.refresh_token;
-      //console.log(accessToken);
-      //console.log(refreshToken);
-      LocalStorage.store(LOCAL_STORAGE_ACCESS_TOKEN, accessToken);
-      LocalStorage.store(LOCAL_STORAGE_REFRESH_TOKEN, refreshToken);
+
+      //Store AccessToken in LocalStorage
+      LocalStorage.store(LOCAL_STORAGE_KEYS.ACCESS_TOKEN, accessToken);
+
+      return data;
     } catch (error) {
-      Logger.error("Login failed:", error as Error);
-      this.clearLocalStorage();
+      this.processError(error);
       throw error;
     }
   }
@@ -46,58 +60,37 @@ class ApiService {
   // Method to handle logout
   async logout() {
     //Call Logout API
-    return await this.api.logout(API_ENDPOINTS.LOGOUT);
+    await this.api.logout(API_ENDPOINTS.LOGOUT);
     this.clearLocalStorage();
   }
 
-  // Method to handle logout
-  clearLocalStorage() {
-    //Call Logout API
-    LocalStorage.remove(LOCAL_STORAGE_ACCESS_TOKEN);
-    LocalStorage.remove(LOCAL_STORAGE_REFRESH_TOKEN);
+  async getUserProfile(): Promise<ApiResponse<any>> {
+    try {
+      this.setAccessToken();
+      return await this.api.get(API_ENDPOINTS.PROFILE, undefined);
+    } catch (error) {
+      this.processError(error);
+      throw error;
+    }
   }
 
-  // Method to get access token from localStorage
-  getAccessToken(): string {
-    return LocalStorage.get(LOCAL_STORAGE_ACCESS_TOKEN);
-  }
-
-  // Method to get refresh token from localStorage
-  getRefreshToken(): string {
-    return LocalStorage.get(LOCAL_STORAGE_REFRESH_TOKEN);
-  }
-
-  //Set accessToken and refreshToken
-  setTokens() {
-    this.api.setAccessToken(this.getAccessToken());
-    const refreshToken = this.getRefreshToken();
-    if (refreshToken) this.api.setRefreshToken(this.getRefreshToken());
-  }
-
-  // Method to get posts
-  async getPosts(): Promise<ApiResponse<any>> {
-    return await this.api.get("/posts", undefined);
-  }
-
-  // Method to update a post
-  async updatePost(
-    postId: number,
-    updatedData: any
-  ): Promise<ApiResponse<any>> {
-    this.setTokens();
-    return await this.api.put(`/posts/${postId}`, updatedData);
-  }
-
-  // Method to create a new post
-  async createPost(newPostData: any): Promise<ApiResponse<any>> {
-    this.setTokens();
-    return await this.api.post("/posts", newPostData);
-  }
-
-  // Method to delete a post
-  async deletePost(postId: number): Promise<ApiResponse<any>> {
-    this.setTokens();
-    return await this.api.delete(`/posts/${postId}`);
+  // Method to process API Error
+  private async processError(error: any): Promise<void> {
+    if (axios.isAxiosError(error) && error.response) {
+      const { statusText } = error.response;
+      if (statusText === TOKEN_EXPIRED) {
+        Logger.error("Token Expired....", error);
+        //When Token is expired, clear the LocalStorage
+        this.clearLocalStorage();
+      } else {
+        // Log and handle other API errors
+        Logger.error("API Error:", error);
+      }
+    } else {
+      // Log and handle other non-API errors
+      Logger.error("Not an API error:", error as Error);
+      // Handle other errors as needed
+    }
   }
 }
 

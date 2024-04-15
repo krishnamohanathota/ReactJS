@@ -26,20 +26,21 @@ export default function Login() {
     (store: RootState) => store.user
   );
 
-  function handleLogin(e: React.FormEvent<HTMLFormElement>) {
+  async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!email || !password) {
       console.log("Please provide username and password");
       return;
     }
 
-    if (API_BASE_URL) {
-      console.log(API_BASE_URL);
-      const apiService = new ApiService(API_BASE_URL);
-      apiService.login(email, password);
+    if (!API_BASE_URL) {
+      console.log("API URL not found");
+      return;
     }
 
-    //Call API to authenticate
+    const apiService = new ApiService(API_BASE_URL);
+    const data = await apiService.login(email, password);
+
     dispatch(userActions.setLoginStatus(true));
     dispatch(userActions.setUserName(email));
   }

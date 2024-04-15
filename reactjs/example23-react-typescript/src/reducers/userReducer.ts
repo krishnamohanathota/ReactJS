@@ -18,7 +18,6 @@ export default function userReducer(
 
   switch (action.type) {
     case userActions.Constants.userName:
-      //debugger;
       return {
         ...state,
         userName: action.payload,
